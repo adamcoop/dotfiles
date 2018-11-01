@@ -1,33 +1,25 @@
 [user]
-  name = Philip Blackwell
-  email = p.blackwell@gmail.com
-  signingkey = 58C8A0B2BEDD6362
+  name = Jake MacMullin
+  email = jake@stripysock.com.au
 
 [core]
   editor = code -n -w
 
-[commit]
-  gpgsign = true
-
 [credential]
   helper = osxkeychain
 
-[gpg]
-  program = /usr/local/bin/gpg
-
-[difftool "Kaleidoscope"]
-	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+[difftool "code"]
+	cmd = code --wait --diff -- \"$LOCAL\" \"$REMOTE\"
 [diff]
-	tool = Kaleidoscope
+	tool = code
 [difftool]
 	prompt = false
-[mergetool "Kaleidoscope"]
-	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
-	trustExitCode = true
+[mergetool "code"]
+	cmd = code --wait \"$MERGED\"
 [mergetool]
 	prompt = false
 [merge]
-	tool = Kaleidoscope
+	tool = code
 
 [alias]
   create-branch = !sh -c 'git push origin HEAD:refs/heads/$1 && git fetch origin && git branch --track $1 origin/$1 && cd . && git checkout $1' -
