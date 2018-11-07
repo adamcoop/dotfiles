@@ -1,29 +1,31 @@
-[user]
-  name = Jake MacMullin
-  email = jake@stripysock.com.au
+  [filter "lfs"]
+          process = git-lfs filter-process
+          required = true
+          clean = git-lfs clean -- %f
+          smudge = git-lfs smudge -- %f
+  [user]
+          name = Adam Cooper
+          email = 30548055+adamcoop@users.noreply.github.com
+  [core]
+        editor = code -n -w
+  [mergetool "Kaleidoscope"]
+          cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+          trustexitcode = true
+  [merge]
+          tool = Kaleidoscope
+  [difftool "Kaleidoscope"]
+          cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+  [difftool]
+          prompt = false
+  [mergetool]
+          prompt = false
+  [diff]
+          tool = Kaleidoscope
 
-[core]
-  editor = code -n -w
 
-[credential]
-  helper = osxkeychain
-
-[difftool "code"]
-	cmd = code --wait --diff -- \"$LOCAL\" \"$REMOTE\"
-[diff]
-	tool = code
-[difftool]
-	prompt = false
-[mergetool "code"]
-	cmd = code --wait \"$MERGED\"
-[mergetool]
-	prompt = false
-[merge]
-	tool = code
 
 [alias]
   create-branch = !sh -c 'git push origin HEAD:refs/heads/$1 && git fetch origin && git branch --track $1 origin/$1 && cd . && git checkout $1' -
   delete-branch = !sh -c 'git push origin :refs/heads/$1 && git branch -D $1' -
   merge-branch = !git checkout master && git merge @{-1}
   fetch-branch = !sh -c 'git fetch origin && git checkout --track -b $1 origin/$1' -
-
